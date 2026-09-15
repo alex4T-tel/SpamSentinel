@@ -386,6 +386,7 @@
     </footer>
 
     <!-- LOGIC -->
+    <!-- LOGIC -->
     <script>
         // --- 1. DARK MODE LOGIC ---
         const themeBtn = document.getElementById('themeToggleBtn');
@@ -480,7 +481,8 @@
                 const RISK_THRESHOLD = 60; 
                 let triggersFound = [];
 
-                const criticalRisk = ["otp", "atm pin", "cvv", "crore", "millionth visitor", "claim prize", "account suspended", "send money", "kyc update"];
+                // ADDED: Telecom and utility scam triggers (sim block, kyc, electricity)
+                const criticalRisk = ["otp", "atm pin", "cvv", "crore", "millionth visitor", "claim prize", "account suspended", "send money", "kyc update", "sim block", "electricity disconnect"];
                 criticalRisk.forEach(phrase => {
                     if (new RegExp(`\\b${phrase}\\b`, 'gi').test(textToAnalyze)) {
                         spamScore += 100; 
@@ -488,7 +490,8 @@
                     }
                 });
 
-                const severeRisk = ["congratulations", "password", "urgent action", "crypto", "bitcoin", "wallet", "hack", "bank account", "wire transfer", "lottery"];
+                // ADDED: Scam tactics (recharge, deactivate, explode, blocked)
+                const severeRisk = ["congratulations", "password", "urgent action", "crypto", "bitcoin", "wallet", "hack", "bank account", "wire transfer", "lottery", "recharge", "deactivated", "blocked", "explode"];
                 severeRisk.forEach(phrase => {
                     if (new RegExp(`\\b${phrase}\\b`, 'gi').test(textToAnalyze)) {
                         spamScore += 40;
@@ -496,7 +499,8 @@
                     }
                 });
 
-                const mediumRisk = ["winner", "won", "guaranteed", "cash bonus", "limited time", "act now", "click here", "unsubscribe", "investment", "payday"];
+                // ADDED: Urgency words (urgent, immediately)
+                const mediumRisk = ["winner", "won", "guaranteed", "cash bonus", "limited time", "act now", "click here", "unsubscribe", "investment", "payday", "urgent", "immediately", "save your"];
                 mediumRisk.forEach(phrase => {
                     const matches = textToAnalyze.match(new RegExp(`\\b${phrase}\\b`, 'gi'));
                     if (matches) {
